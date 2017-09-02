@@ -31,11 +31,11 @@ def swich_work():
     def inner():
         try:
             another_conn = heroku3.from_key(ANOTHER_API_KEY)
-            another_app = another_conn.apps()['heroku-keepalive-{}'.format('pm' if IS_AM else 'am')]
+            another_app = list(another_conn.apps())[0]
             another_app.process_formation()['clock'].scale(1)
 
             self_conn = heroku3.from_key(SELF_API_KEY)
-            self_app = self_conn.apps()['heroku-keepalive-{}'.format('am' if IS_AM else 'pm')]
+            self_app = list(self_conn.apps())[0]
             self_app.process_formation()['clock'].scale(0)
         except:
             traceback.print_exc()
