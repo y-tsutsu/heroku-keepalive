@@ -1,13 +1,13 @@
 import os
-from pytz import timezone
-from datetime import datetime
-from apscheduler.schedulers.blocking import BlockingScheduler
-import urllib.request
 import traceback
+import urllib.request
+from datetime import datetime
+
 import heroku3
+from apscheduler.schedulers.blocking import BlockingScheduler
+from pytz import timezone
 
 sc = BlockingScheduler()
-
 
 KEEPALIVE_URL = os.environ.get('KEEPALIVE_URL', '')
 IS_AM = os.environ.get('IS_AM', '')
@@ -21,10 +21,11 @@ def keep_alive():
     if 0 <= now.hour <= 7:
         return
     if KEEPALIVE_URL:
-        try:
-            urllib.request.urlopen(KEEPALIVE_URL)
-        except:
-            traceback.print_exc()
+        for url in KEEPALIVE_URL.split(';'):
+            try:
+                urllib.request.urlopen(url)
+            except:
+                traceback.print_exc()
 
 
 def swich_work():
@@ -53,4 +54,9 @@ def do_work():
     swich_work()
 
 
-sc.start()
+def main():
+    sc.start()
+
+
+if __name__ == '__main__':
+    main()
