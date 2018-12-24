@@ -24,7 +24,7 @@ def keep_alive():
         for url in KEEPALIVE_URL.split(';'):
             try:
                 urllib.request.urlopen(url)
-            except:
+            except Exception:
                 traceback.print_exc()
 
 
@@ -38,7 +38,7 @@ def swich_work():
             self_conn = heroku3.from_key(SELF_API_KEY)
             self_app = list(self_conn.apps())[0]
             self_app.process_formation()['clock'].scale(0)
-        except:
+        except Exception:
             traceback.print_exc()
 
     now = datetime.now(timezone('Asia/Tokyo'))

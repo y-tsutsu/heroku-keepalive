@@ -9,7 +9,8 @@ heroku3 = "*"
 
 [dev-packages]
 autopep8 = "*"
+flake8 = "*"
 rope = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
