@@ -13,4 +13,4 @@ flake8 = "*"
 rope = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"
